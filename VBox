@@ -1,0 +1,33 @@
+#!/bin/bash
+
+#gl_dstIP=$(ip r | grep default | awk '{print $3}')
+gl_dstIP=docker.for.mac.localhost
+gl_dstUser=$(id -un)
+
+echo "$(date) -- $0 $@" >> ${HOME}/vbox.log
+gl_progName="${0##*/}"
+gl_progPath=/vbox
+#[c]set -xv
+gl_args=( "$@" )
+gl_args=( "${gl_args[@]/#/\\\"}" )
+gl_args=( "${gl_args[@]/%/\\\"}" )
+#gl_args=( "${gl_args[@]//\/root\//\/home\/${gl_dstUser}\/}" )
+
+#[c]echo ${#gl_args[@]}
+#[c]echo ${gl_args[@]}
+eval "ssh -i ${HOME}/.ssh/id_rsa ${gl_dstUser}@${gl_dstIP} bash -l \"${gl_progName} ${gl_args[@]}\""
+gl_exitcode=$?
+echo "${gl_exitcode}" >> ${HOME}/vbox.log
+exit ${gl_exitcode}
+
+#[c]b=( abc abc abc )
+#[c]b=( "${b[@]/#/\"}" )
+#[c]echo ${#b[@]}
+#[c]3
+#[c]echo ${b[@]}
+#[c]"abc "abc "abc
+#[c]b=( "${b[@]/%/\"}" )
+#[c]echo ${b[@]}
+#[c]"abc" "abc" "abc"
+#[c]echo ${#b[@]}
+#[c]3
