@@ -1,6 +1,6 @@
 #!/bin/bash
 
-gl_dstIP=docker.for.mac.localhost
+gl_dstIP=host.docker.internal
 gl_dstUser=$(id -un)
 gl_sshKey=${HOME}/.ssh/id_rsa
 
