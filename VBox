@@ -11,7 +11,7 @@ gl_args=( "$@" )
 gl_args=( "${gl_args[@]/#/\\\"}" )
 gl_args=( "${gl_args[@]/%/\\\"}" )
 
-eval "ssh -i ${gl_sshKey} ${gl_dstUser}@${gl_dstIP} bash -l \"${gl_progName} ${gl_args[@]}\""
+eval "ssh -i ${gl_sshKey} ${gl_dstUser}@${gl_dstIP} bash -lc \"${gl_progName} ${gl_args[@]}\""
 gl_exitcode=$?
 echo "${gl_exitcode}" >> ${HOME}/vbox.log
 exit ${gl_exitcode}
